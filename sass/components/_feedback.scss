@@ -12,4 +12,8 @@ $feedback-height: 550px;
 
   @media #{$breakpoint-md} { right: 5%; }
   &.show { bottom: 0; }
+
+  button:focus {
+    outline: $blue-white auto 5px;
+  }
 }
