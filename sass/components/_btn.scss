@@ -1,5 +1,8 @@
+button:focus,
 .btn:focus {
-  box-shadow: none;
+  border-color: $field-focus-color;
+  box-shadow: 0 0 0 2px rgba($field-focus-color, .5);
+  outline: none;
 }
 
 .btn-sm {
@@ -13,8 +16,7 @@
   color: #697a85;
   opacity: inherit;
 
-  &:hover,
-  &:focus {
+  &:hover {
     box-shadow: none;
   }
 }
