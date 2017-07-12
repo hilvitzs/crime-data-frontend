@@ -7,6 +7,7 @@ import LocationSelect from './LocationSelect'
 import UsaMap from './UsaMap'
 import { updateApp } from '../actions/composite'
 import { updateFilters } from '../actions/filters'
+import { crimeTypes } from '../util/offenses'
 import { oriToState } from '../util/ori'
 import { slugify } from '../util/text'
 import stateLookup from '../util/usa'
@@ -89,24 +90,18 @@ const Home = ({ appState, dispatch, router }) => {
               >
                 <option value="" disabled>Crime Type</option>
                 <optgroup label="Violent Crime">
-                  <option value="violent-crime">
-                    All Violent Crime
-                  </option>
-                  <option value="homicide">Homicide</option>
-                  <option value="rape">Rape</option>
-                  <option value="robbery">Robbery</option>
-                  <option value="aggravated-assault">Aggravated Assault</option>
+                  {crimeTypes.violentCrime.map((o, i) =>
+                    <option key={i} value={o.id || slugify(o)}>
+                      {o.text || o}
+                    </option>,
+                  )}
                 </optgroup>
                 <optgroup label="Property Crime">
-                  <option value="property-crime">
-                    All Property Crime
-                  </option>
-                  <option value="arson">Arson</option>
-                  <option value="burglary">Burglary</option>
-                  <option value="larceny">Larceny Theft</option>
-                  <option value="motor-vehicle-theft">
-                    Motor Vehicle Theft
-                  </option>
+                  {crimeTypes.propertyCrime.map((o, i) =>
+                    <option key={i} value={o.id || slugify(o)}>
+                      {o.text || o}
+                    </option>,
+                  )}
                 </optgroup>
               </select>
             </div>
@@ -171,7 +166,8 @@ const Home = ({ appState, dispatch, router }) => {
             Open data
           </h2>
           <p className="p0 md-col-9 fs-16 sm-fs-20 serif">
-            The data is voluntarily submitted by as many as 18,000 law enforcement agencies
+            The data is voluntarily submitted by as many as 18,000 law
+            enforcement agencies
             across the country that participate in the FBI’s{' '}
             <a href="https://ucr.fbi.gov/" className="underline">
               Uniform Crime Reporting (UCR) Program
