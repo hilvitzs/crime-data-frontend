@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 
 import DownloadBulkNibrs from './DownloadBulkNibrs'
 import DownloadDataBtn from './DownloadDataBtn'
+import SharingTags from './SharingTags'
 import Term from './Term'
 import otherDatasets from '../../content/datasets.yml'
 import markdown from '../util/md'
@@ -19,6 +20,7 @@ const nibrsTerm = (
 const DownloadsAndDocs = () =>
   <section className="bg-white">
     <Helmet title="CDE :: Downloads & Documentation" />
+    <SharingTags title="Downloads & Documentation" />
     <div className="px2 py7 container mx-auto">
       <h1 className={`mt0 mb4 pb1 fs-28 sm-fs-40 ${border}`}>
         Downloads & Documentation
@@ -26,12 +28,11 @@ const DownloadsAndDocs = () =>
       <div className="clearfix">
         <div className="md-col md-col-9 md-pr7 fs-16 sm-fs-20 serif">
           <p className="mb2 md-m0">
-            Download {nibrsTerm} data by year and location. Estimated data
-            and other crime-related datasets are also available for download.
-            Data is provided as CSV files and can be accessed via the{' '}
+            Download {nibrsTerm} data by year and location. Estimated data and
+            other crime-related datasets are also available for download. Data
+            is provided as CSV files and can be accessed via the{' '}
             <a className="underline" href="/api">
-              Crime Data
-              Explorer API
+              Crime Data Explorer API
             </a>.
           </p>
         </div>
