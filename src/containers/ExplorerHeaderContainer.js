@@ -11,17 +11,16 @@ import { getPlaceInfo } from '../util/place'
 import { getAgency, oriToState } from '../util/ori'
 
 const ExplorerHeaderContainer = ({
-  agencies,
   agency,
   coordinates,
   crime,
   isAgency,
+  isLoading,
   participation,
   place,
   placeType,
   until,
 }) => {
-  const isLoading = isAgency ? agencies.loading : participation.loading
   const usState = isAgency ? oriToState(place) : place
   const placeDisplay = isAgency ? agency.agency_name : startCase(usState)
 
@@ -29,9 +28,7 @@ const ExplorerHeaderContainer = ({
     <div>
       <div className="items-baseline mt2 mb4">
         <h1 className="flex-auto m0 pb-tiny fs-22 sm-fs-32 border-bottom border-blue-light">
-          {isAgency
-            ? isLoading ? 'Loading agency...' : placeDisplay
-            : startCase(usState)}
+          {isAgency ? placeDisplay : startCase(usState)}
         </h1>
       </div>
       <div className="mb5 clearfix">
@@ -71,16 +68,19 @@ const mapStateToProps = ({ agencies, filters, participation }) => {
   const { place, placeType } = getPlaceInfo(filters)
   const { crime, until } = filters
   const isAgency = placeType === 'agency'
-  const agency = isAgency && !agencies.loading && getAgency(agencies, place)
+  const agency = isAgency && getAgency(agencies, place)
   const { icpsr_lat: lat, icpsr_lng: lng } = agency
   const coordinates = isAgency && lat && lng && { lat, lng }
+  const isLoading = isAgency
+    ? agency.agency_type_name === undefined
+    : participation.loading
 
   return {
-    agencies,
     agency,
     coordinates,
     crime,
     isAgency,
+    isLoading,
     participation,
     place,
     placeType,

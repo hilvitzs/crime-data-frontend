@@ -79,13 +79,12 @@ class AgencySearch extends Component {
     data.forEach(d => (counties[d.primary_county || 'N/A'] = true))
 
     const searchUpper = search.toUpperCase()
-    const dataFiltered =
-      searchUpper === ''
-        ? data
-        : data.filter(d => {
-            const words = `${d.ori} ${d.agency_name}`.toUpperCase()
-            return words.includes(searchUpper)
-          })
+    const dataFiltered = searchUpper === ''
+      ? data
+      : data.filter(d => {
+          const words = `${d.ori} ${d.agency_name}`.toUpperCase()
+          return words.includes(searchUpper)
+        })
 
     return (
       <div className="agency-search mt2">

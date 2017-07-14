@@ -57,9 +57,9 @@ const Content = ({ crime, place, since, submitsNibrs, summary, until }) => {
 }
 
 const AgencyChartContainer = params => {
-  const { agency, crime, since, summary, until } = params
+  const { agency, crime, isLoading, since, summary, until } = params
 
-  if (!agency) return null
+  if (isLoading) return null
 
   const submitsNibrs = agency.nibrs_months_reported === 12
   const noun = submitsNibrs ? 'incidents' : 'offenses'
@@ -105,11 +105,18 @@ AgencyChartContainer.propTypes = {
   until: PropTypes.number.isRequired,
 }
 
-const mapStateToProps = ({ agencies, filters, summaries }) => ({
-  agency: !agencies.loading && getAgency(agencies, filters.place),
-  ...filters,
-  summary: summaries,
-})
+const mapStateToProps = ({ agencies, filters, summaries }) => {
+  const agency = getAgency(agencies, filters.place)
+  const isLoading = (agency || {}).nibrs_months_reported === undefined
+
+  return {
+    agency,
+    ...filters,
+    isLoading,
+    summary: summaries,
+  }
+}
+
 const mapDispatchToProps = dispatch => ({ dispatch })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
