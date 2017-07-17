@@ -19,7 +19,7 @@ import routes from './routes'
 import configureStore from './store'
 import { updateFilters } from './actions/filters'
 import createEnv from './util/env'
-import { hasThreatKeyword } from './util/feedback'
+import { hasThreatKeyword, notifyOfThreat } from './util/feedback'
 import { createIssue } from './util/github'
 import history from './util/history'
 
@@ -94,11 +94,10 @@ app.post('/feedback', (req, res) => {
     title,
     token: repoToken,
   })
-    .then(issue => {
-      if (hasThreatKeyword(body, terms)) {
-        console.log('notify the people somehow')
-      }
-      return res.send(issue.data)
+    .then(issueResponse => {
+      const { data: issue } = issueResponse
+      if (hasThreatKeyword(body, terms)) notifyOfThreat(issue)
+      return res.send(issue)
     })
     .catch(e => res.status(e.response.status).end())
 })

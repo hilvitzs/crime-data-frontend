@@ -4,3 +4,7 @@ export const hasThreatKeyword = (txt, terms) => {
     .map(t => txt.toLowerCase().includes(t.toLowerCase()))
     .includes(true)
 }
+
+export const notifyOfThreat = ({ html_url }) => {
+  console.log('notifying with issue:', html_url)
+}
