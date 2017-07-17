@@ -62,7 +62,7 @@ footer {
 }
 
 @media #{$breakpoint-md} {
-  .site-wrapper { flex-direction: row; }
+  .site-wrapper { flex-direction: row; max-width: 1170px; margin: 0 auto; }
   .site-content { flex: 1; }
   .site-sidebar { display: block; flex: 0 0 $sidebar-width; }
 }
