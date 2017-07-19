@@ -24,7 +24,7 @@ const App = ({ actions, appState, children, dispatch, location }) =>
     <Disclaimer />
     <BetaBanner onFeedbackClick={actions.showFeedback} />
     <Header location={location} />
-    <main className="site-main">
+    <main className="site-main bg-white">
       {children && React.cloneElement(children, { appState, dispatch })}
     </main>
     <Glossary actions={actions} {...appState.glossary} />
